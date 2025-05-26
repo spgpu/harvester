@@ -5,8 +5,17 @@ use tokio::sync::mpsc::{self, Receiver, Sender};
 
 type Transaction = Vec<u8>;
 
+// Template for transaction parsing
 #[derive(Debug, Default, Deserialize, Serialize)]
-struct CoinbaseTransaction;
+struct TransactionTemplate {
+    pub data: String,
+    pub txid: String,
+    pub hash: String,
+    pub depends: Vec<u32>,
+    pub fee: Option<u64>,
+    pub sigops: Option<u32>,
+    pub weight: u32,
+}
 
 /// Full block
 pub struct Block {
@@ -24,10 +33,10 @@ pub struct BlockTemplate {
     previousblockhash: String,
     sigoplimit: u32,
     sizelimit: u32,
-    transactions: Vec<Transaction>,
+    transactions: Vec<TransactionTemplate>,
     version: u32,
     // coinbaseaux is ignored for this implementation
-    //coinbasetxn: CoinbaseTransaction,
+    // coinbasetxn is handled externally in Bridge
     coinbasevalue: u64,
     // workid is ignored for this implementation
 }
