@@ -136,6 +136,9 @@ pub async fn listen_for_new_block(
 
 // Constructs a full block (header + transactions)
 fn construct_block(template: BlockTemplate, payout_address: &str) -> Block {
+    // TODO: Parse BlockTemplate information
+    // Build Coinbase Transaction
+    // Build Block
     Block {
         header: [0u8; 80],
         transactions: vec![],
